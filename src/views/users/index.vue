@@ -1,5 +1,5 @@
 <template>
-  <div>菜单</div>
+  <div>用户</div>
 </template>
 
 <script>

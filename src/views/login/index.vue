@@ -1,5 +1,7 @@
 <template>
-  <div>菜单</div>
+  <div>
+    登录页面
+  </div>
 </template>
 
 <script>

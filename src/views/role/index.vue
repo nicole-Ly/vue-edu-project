@@ -1,5 +1,5 @@
 <template>
-  <div>菜单</div>
+  <div>角色</div>
 </template>
 
 <script>

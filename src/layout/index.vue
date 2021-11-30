@@ -1,5 +1,6 @@
 <template>
-  <div>菜单</div>
+  <div>
+  </div>
 </template>
 
 <script>
