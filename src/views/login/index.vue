@@ -20,10 +20,13 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Form } from 'element-ui'
+import { login } from '@/service/user'
+import { mapMutations } from 'vuex'
 export default Vue.extend({
+  name: 'loginPage',
   data () {
     return {
-      isLoginLoading: true,
+      isLoginLoading: false,
       formInfo: {
         phone: '18201288771',
         password: '111111'
@@ -41,11 +44,26 @@ export default Vue.extend({
     }
   },
   methods: {
+    ...mapMutations(['setUser']),
     async submitForm () {
-      await (this.$refs.form as Form).validate()
-      if (this.isLoginLoading) return
-      this.isLoginLoading = true
-      console.log(1111111111111)
+      try {
+        await (this.$refs.form as Form).validate()
+        if (this.isLoginLoading) return
+        this.isLoginLoading = true
+        const user = await login(this.formInfo)
+        this.isLoginLoading = false
+        console.log(user.data.state)
+        const { state, message, content } = user.data
+        if (user.data.state !== 1) {
+          this.$message.error(message)
+          return
+        }
+        this.setUser(content)
+        console.log(user.data.content)
+        this.$router.push('/')
+      } catch (error) {
+        console.log('登录失败', error)
+      }
     }
   }
 })
