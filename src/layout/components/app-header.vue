@@ -25,7 +25,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { getUserInfo } from '@/service/user'
+import { getUserInfo } from '@/services/user'
 export default Vue.extend({
   name: 'headerPage',
   data () {
@@ -40,7 +40,6 @@ export default Vue.extend({
     }
   },
   async mounted () {
-    console.log(22222222)
     const { data } = await getUserInfo()
     this.userInfo = data.content
     console.log(this.userInfo)

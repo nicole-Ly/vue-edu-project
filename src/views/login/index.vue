@@ -20,7 +20,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { Form } from 'element-ui'
-import { login } from '@/service/user'
+import { login } from '@/services/user'
 import { mapMutations } from 'vuex'
 export default Vue.extend({
   name: 'loginPage',
@@ -49,16 +49,18 @@ export default Vue.extend({
       try {
         await (this.$refs.form as Form).validate()
         if (this.isLoginLoading) return
+
         this.isLoginLoading = true
         const user = await login(this.formInfo)
         this.isLoginLoading = false
+
         const { state, message, content } = user.data
         if (state !== 1) {
           this.$message.error(message)
           return
         }
         this.setUser(content)
-        this.$router.push('/')
+        this.$router.push(this.$route.query.redirect as string || '/')
       } catch (error) {
         this.isLoginLoading = false
         console.log('登录失败', error)

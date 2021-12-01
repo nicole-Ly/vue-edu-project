@@ -31,6 +31,24 @@ const routes: Array<RouteConfig> = [
         component: () => import(/* webpackChunkName:'role' */ '@/views/role/index.vue')
       },
       {
+        path: '/role/:roleId/alloc-menu',
+        name: 'alloc-menu',
+        meta: {
+          title: '角色分配菜单'
+        },
+        component: () => import(/* webpackChunkName: 'alloc-menu' */ '@/views/role/alloc-menu.vue'),
+        props: true // 将路由路径参数映射到组件的 props 数据中
+      },
+      {
+        path: '/role/:roleId/alloc-resource',
+        name: 'alloc-resource',
+        meta: {
+          title: '角色分配资源'
+        },
+        component: () => import(/* webpackChunkName: 'alloc-menu' */ '@/views/role/alloc-resource.vue'),
+        props: true // 将路由路径参数映射到组件的 props 数据中
+      },
+      {
         name: 'menu',
         path: '/menu',
         meta: {
@@ -60,7 +78,18 @@ const routes: Array<RouteConfig> = [
         meta: {
           title: '课程管理'
         },
-        component: () => import(/* webpackChunkName:'course' */ '@/views/courses/index.vue')
+        component: () => import(/* webpackChunkName:'course' */ '@/views/course/index.vue')
+      },
+      {
+        path: '/course/create',
+        name: 'course-create',
+        component: () => import(/* webpackChunkName: 'course-create' */ '@/views/course/create.vue')
+      },
+      {
+        path: '/course/:courseId/edit',
+        name: 'course-edit',
+        component: () => import(/* webpackChunkName: 'course-edit' */ '@/views/course/edit.vue'),
+        props: true
       },
       {
         name: 'advertise',
@@ -83,7 +112,10 @@ router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) { // 需要权限访问的路由配置meta
     if (!store.state.user) {
       next({
-        name: 'login'
+        name: 'login',
+        query: {
+          redirect: to.path
+        }
       })
       return
     }

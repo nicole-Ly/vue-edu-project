@@ -19,3 +19,13 @@ export const getUserInfo = () => {
     url: '/front/user/getInfo'
   })
 }
+
+export const refreshToken = (refreshtoken: string) => {
+  return request({
+    method: 'POST',
+    url: '/front/user/refresh_token',
+    params: {
+      refreshtoken
+    }
+  })
+}

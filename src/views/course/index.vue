@@ -1,17 +1,17 @@
 <template>
-  <div class="role">
-    <role-list/>
+  <div class="course">
+    <course-list />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
-import RoleList from './components/List.vue'
+import CourseList from './components/CourseList.vue'
 
 export default Vue.extend({
-  name: 'RoleIndex',
+  name: 'CourseIndex',
   components: {
-    RoleList
+    CourseList
   }
 })
 </script>
