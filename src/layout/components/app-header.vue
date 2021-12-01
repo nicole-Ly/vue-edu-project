@@ -1,8 +1,7 @@
 <template>
   <div class="header">
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path:item.path||'/' }" v-for="(item,index) in matched" :key="index">{{item.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
     <el-dropdown>
       <span class="el-dropdown-link">
@@ -31,19 +30,54 @@ export default Vue.extend({
   name: 'headerPage',
   data () {
     return {
-      userInfo: {}
+      userInfo: {},
+      matched: []
+    }
+  },
+  watch: {
+    $route () {
+      this.getBreadcrumb()
     }
   },
   async mounted () {
+    console.log(22222222)
     const { data } = await getUserInfo()
     this.userInfo = data.content
     console.log(this.userInfo)
+  },
+  methods: {
+    getBreadcrumb () {
+      (this.matched as any) = this.$route.matched || []
+      console.log(this.$route.matched)
+    },
+    handleLogout () {
+      this.$confirm('确认退出吗？', '退出提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => { // 确认执行这里
+        // 清除登录状态
+        this.$store.commit('setUser', null)
+
+        // 跳转到登录页面
+        this.$router.push({
+          name: 'login'
+        })
+
+        this.$message({
+          type: 'success',
+          message: '退出成功!'
+        })
+      }).catch(() => { // 取消执行这里
+      })
+    }
   }
 })
 </script>
 
 <style lang="scss" scoped>
 .header {
+  width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
@@ -51,6 +85,11 @@ export default Vue.extend({
   .el-dropdown-link {
     display: flex;
     align-items: center;
+  }
+}
+::v-deep{
+  .el-header, .el-footer{
+    background: #fff;
   }
 }
 </style>

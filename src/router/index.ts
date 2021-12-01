@@ -3,6 +3,10 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Layout from '@/layout/index.vue'
 import store from '../store'
 Vue.use(VueRouter)
+// const originalPush = VueRouter.prototype.push
+// VueRouter.prototype.push = function push (location) {
+//   return originalPush.call(this, location).catch((err: any) => err)
+// }
 
 const routes: Array<RouteConfig> = [
   {
@@ -14,6 +18,7 @@ const routes: Array<RouteConfig> = [
     path: '/',
     component: Layout,
     meta: {
+      title: '首页',
       requiresAuth: true
     },
     children: [
@@ -28,26 +33,41 @@ const routes: Array<RouteConfig> = [
       {
         name: 'menu',
         path: '/menu',
+        meta: {
+          title: '菜单管理'
+        },
         component: () => import(/* webpackChunkName:'menu' */ '@/views/menu/index.vue')
       },
       {
         name: 'resource',
         path: '/resource',
+        meta: {
+          title: '资源管理'
+        },
         component: () => import(/* webpackChunkName:'resource' */ '@/views/resource/index.vue')
       },
       {
         name: 'user',
         path: '/user',
+        meta: {
+          title: '用户管理'
+        },
         component: () => import(/* webpackChunkName:'user' */ '@/views/users/index.vue')
       },
       {
         name: 'course',
         path: '/course',
+        meta: {
+          title: '课程管理'
+        },
         component: () => import(/* webpackChunkName:'course' */ '@/views/courses/index.vue')
       },
       {
         name: 'advertise',
         path: '/advertise',
+        meta: {
+          title: '广告管理'
+        },
         component: () => import(/* webpackChunkName:'advertise' */ '@/views/advertise/index.vue')
       }
     ]

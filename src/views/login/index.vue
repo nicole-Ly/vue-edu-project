@@ -52,16 +52,15 @@ export default Vue.extend({
         this.isLoginLoading = true
         const user = await login(this.formInfo)
         this.isLoginLoading = false
-        console.log(user.data.state)
         const { state, message, content } = user.data
-        if (user.data.state !== 1) {
+        if (state !== 1) {
           this.$message.error(message)
           return
         }
         this.setUser(content)
-        console.log(user.data.content)
         this.$router.push('/')
       } catch (error) {
+        this.isLoginLoading = false
         console.log('登录失败', error)
       }
     }
