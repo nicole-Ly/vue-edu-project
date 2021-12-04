@@ -5,12 +5,8 @@
       "destination": "/api/proxy"
     },
     {
-      "rewrites": [
-        {
-          "source": "/front/(.*)",
-          "destination": "/api/proxy"
-        }
-      ]
+      "source": "/front/(.*)",
+      "destination": "/api/proxy"
      }
   ]
  }
