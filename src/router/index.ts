@@ -70,7 +70,7 @@ const routes: Array<RouteConfig> = [
         meta: {
           title: '用户管理'
         },
-        component: () => import(/* webpackChunkName:'user' */ '@/views/users/index.vue')
+        component: () => import(/* webpackChunkName:'user' */ '@/views/user/index.vue')
       },
       {
         name: 'course',
