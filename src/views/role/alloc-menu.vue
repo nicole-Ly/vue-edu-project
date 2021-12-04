@@ -55,8 +55,8 @@ export default Vue.extend({
       const { data } = await getRoleMenus(this.roleId)
       this.getCheckedKeys(data.data)
     },
-    getCheckedKeys (menus:any) {
-      menus.forEach((menu:any) => {
+    getCheckedKeys (menus: any) {
+      menus.forEach((menu: any) => {
         if (menu.selected) {
           this.checkedKeys = [...this.checkedKeys, menu.id] as any
         }
